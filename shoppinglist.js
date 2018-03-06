@@ -51,3 +51,4 @@ function clickedon() {
 	mytable.appendChild(tr)
 
 }
+
