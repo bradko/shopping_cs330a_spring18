@@ -114,7 +114,7 @@ class ShoppingList extends Subject{
 
 	addItem(item) {
 		this._items.push(item)
-		super.publish("Added Item", this)
+		this.publish("Added Item", this)
 	}
 
 	removeItem(item) {
@@ -122,7 +122,7 @@ class ShoppingList extends Subject{
 		if (index > -1){
 			this._items.splice(index,1)
 		}
-		super.publish("Removed Item", this)
+		this.publish("Removed Item", this)
 	}
 
 }

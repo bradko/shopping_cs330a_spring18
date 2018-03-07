@@ -1,9 +1,11 @@
 "use strict"
 
-class View {
+class ShoppingView {
 	constructor(model){
-		this.model = model
-		model.subscribe(this.redrawTable.bind(this))
+		let self = this
+		model.subscribe(function(a,b){
+			self.redrawTable(a,b)
+		})
 	}
 
 	redrawTable(shoppingList, msg){
@@ -14,17 +16,7 @@ class View {
 		let counter = 1
 
 		for (let i of items){
-			let color = "None"
-			if (i.priority == "Low"){
-				color = "success" 
-			}
-			if (i.priority == "Medium"){
-				color = "warning"	
-			}
-			if (i.priority == "High"){
-				color = "danger"
-			}
-
+			let color = this.getColor(i)
 			let tr = document.createElement("tr")
 			tr.className = color
 			let id = "row" + counter
@@ -33,8 +25,15 @@ class View {
 			let cb = document.createElement("input")
 			cb.type = "checkbox"
 			cb.id = counter
+			var timer
 			cb.onclick = function checkbox(){
 				cbclick(cb.id, i)
+				if(cb.checked){
+					timer = setTimeout(function(){ shoppingList.removeItem(i); }, 2500);
+				}
+				else{
+					clearTimeout(timer)
+				}
 			}
 			tr.appendChild(cb)
 
@@ -54,6 +53,20 @@ class View {
 
 			counter++
 		}
+	}
+
+	getColor(item){
+		let color = "None"
+			if (item.priority == "Low"){
+				color = "success" 
+			}
+			if (item.priority == "Medium"){
+				color = "warning"	
+			}
+			if (item.priority == "High"){
+				color = "danger"
+			}
+		return color
 	}
 
 }

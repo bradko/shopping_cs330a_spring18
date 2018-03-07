@@ -1,7 +1,7 @@
 "use strict"
 
-let list = new ShoppingList()
-let view = new View(list)
+var list = new ShoppingList()
+var view = new ShoppingView(list)
 
 function clickedon() {
 	let name = document.querySelector("#name")
@@ -23,10 +23,11 @@ function cbclick(row, item) {
 	if (check.checked) {
 		rw.style.textDecorationLine = "line-through"	
 		item.purchase()
+		rw.className = "Default"
 	}
 	else {
 		rw.style.textDecorationLine = "none"
 		item.unpurchase()
+		rw.className = view.getColor(item)
 	}
 } 
-
