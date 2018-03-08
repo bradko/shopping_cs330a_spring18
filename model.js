@@ -125,4 +125,8 @@ class ShoppingList extends Subject{
 		this.publish("Removed Item", this)
 	}
 
+	alphabatizeItems(){
+		
+	}
+
 }
