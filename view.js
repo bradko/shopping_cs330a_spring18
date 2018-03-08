@@ -25,14 +25,13 @@ class ShoppingView {
 			let cb = document.createElement("input")
 			cb.type = "checkbox"
 			cb.id = counter
-			var timer
 			cb.onclick = function checkbox(){
 				cbclick(cb.id, i)
 				if(cb.checked){
-					timer = setTimeout(function(){ shoppingList.removeItem(i); }, 2500);
+					i.setTimer(shoppingList, i)
 				}
 				else{
-					clearTimeout(timer)
+					i.clearTimer()
 				}
 			}
 			tr.appendChild(cb)
@@ -50,7 +49,6 @@ class ShoppingView {
 				cb.checked = true
 				cbclick(cb.id, i)
 			}
-
 			counter++
 		}
 	}

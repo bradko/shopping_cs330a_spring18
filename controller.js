@@ -10,8 +10,9 @@ function clickedon() {
 	let price = document.querySelector("#price")
 	let priority = document.querySelector("#priority")
 	let category = document.querySelector("#category")
+	var timer = ""
 
-	let newItem = new Item(name.value, quantity.value, priority.value, store.value, category.value, price.value)
+	let newItem = new Item(name.value, quantity.value, priority.value, store.value, category.value, price.value, timer.value)
 	list.addItem(newItem)
 }
 
@@ -31,3 +32,7 @@ function cbclick(row, item) {
 		rw.className = view.getColor(item)
 	}
 } 
+
+function sortList(field){
+	list.sortItems(field)
+}

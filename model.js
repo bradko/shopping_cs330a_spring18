@@ -29,13 +29,14 @@ class Subject {
 }
 
 class Item {
-	constructor(name, quantity, priority, store, category, price) {
+	constructor(name, quantity, priority, store, category, price, timer) {
 		this._name = name
 		this._quantity = quantity
 		this._priority = priority
 		this._store = store
 		this._category = category
 		this._price = price
+		this._timer = timer
 		this._purchased = false
 	}
 
@@ -75,30 +76,13 @@ class Item {
 		return this._purchased
 	}
 
-	set name(nv) {
-		this._name = nv
+	setTimer(sl, i) {
+		this._timer = setTimeout(function(){ sl.removeItem(i); }, 2500);
 	}
 
-	set quantity(nv) {
-		this._quantity = nv
+	clearTimer() {
+		clearTimeout(this._timer)
 	}
-
-	set priority(nv) {
-		this._priority = nv
-	}
-
-	set store(nv) {
-		this._store = nv
-	}
-
-	set category(nv) {
-		this._category = nv
-	}
-
-	set price(nv) {
-		this._price = nv
-	}
-
 }
 
 class ShoppingList extends Subject{
@@ -125,8 +109,26 @@ class ShoppingList extends Subject{
 		this.publish("Removed Item", this)
 	}
 
-	alphabatizeItems(){
+	sortItems(field) {	
+		let swapped = true
 		
+		while (swapped) {
+			swapped = false
+			for (let i=0; i < this._items.length-1; i++) {
+				if (this._items[i][field] > this._items[i+1][field]){
+					swap(this._items, i, i+1)
+					swapped = true
+				}
+			}
+		}
+
+		function swap(items, firstIndex, secondIndex){
+    		var temp = items[firstIndex];
+    		items[firstIndex] = items[secondIndex];
+    		items[secondIndex] = temp;
+		}
+
+		this.publish("Sorted Items", this)
 	}
 
 }
