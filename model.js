@@ -99,6 +99,9 @@ class ShoppingList extends Subject{
 	addItem(item) {
 		this._items.push(item)
 		this.publish("Added Item", this)
+
+		let jlist = JSON.stringify(this._items)
+		localStorage.setItem("brads_list", jlist)
 	}
 
 	removeItem(item) {
@@ -107,6 +110,10 @@ class ShoppingList extends Subject{
 			this._items.splice(index,1)
 		}
 		this.publish("Removed Item", this)
+
+		let jlist = JSON.stringify(this._items)
+		localStorage.setItem("brads_list", jlist)
+
 	}
 
 	sortItems(field) {	
@@ -129,6 +136,9 @@ class ShoppingList extends Subject{
 		}
 
 		this.publish("Sorted Items", this)
+
+		let jlist = JSON.stringify(list._items)
+		localStorage.setItem("brads_list", jlist)
 	}
 
 }

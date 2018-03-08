@@ -3,6 +3,13 @@
 var list = new ShoppingList()
 var view = new ShoppingView(list)
 
+var myList = localStorage.getItem("brads_list")
+let loadedItems = JSON.parse(myList)
+for (let i of loadedItems) {
+	let newItem = new Item(i._name, i._quantity, i._priority, i._store, i._category, i._price, i._timer)
+	list.addItem(newItem)
+}
+
 function clickedon() {
 	let name = document.querySelector("#name")
 	let store = document.querySelector("#store")
@@ -14,6 +21,9 @@ function clickedon() {
 
 	let newItem = new Item(name.value, quantity.value, priority.value, store.value, category.value, price.value, timer.value)
 	list.addItem(newItem)
+	
+	let jlist = JSON.stringify(list._items)
+	localStorage.setItem("brads_list", jlist)
 }
 
 function cbclick(row, item) {
