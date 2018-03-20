@@ -4,11 +4,14 @@ import time
 
 app = Flask(__name__)
 
+# read json from file (GET)
 @app.route('/getlist')
 def anyname():
-	res = Response(json.dumps({'number':random.randrange(100)}))
-	#res.headers['access-Control-Allow-Origin'] = '*'
-	res.headers['Content-type'] = 'application/json'
-	return res
+	pass
+
+# write json to file (POST)
+@app.route('/savelist')
+def save():
+	pass
 
 app.run(debug=True, port=5001)
