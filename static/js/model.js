@@ -109,17 +109,44 @@ class ShoppingList extends Subject{
 		this.publish("Removed Item", this)
 	}
 
-	sortItems(field) {	
+	sortItems(field) {
+		let numSwaps = 0	
 		let swapped = true
-		
+
 		while (swapped) {
 			swapped = false
 			for (let i=0; i < this._items.length-1; i++) {
-				if (this._items[i][field] > this._items[i+1][field]){
+				let current = this._items[i][field]
+				let next = this._items[i+1][field]
+				let swapem = false
+
+				if (!isNaN(current) && !isNaN(next)) {
+					current = Number(current)
+					next = Number(next)
+				}
+
+				if (isNaN(current) && isNaN(next)) {
+					swapem = current.toUpperCase() > next.toUpperCase()
+				}
+
+				else {
+					swapem = current > next
+				}
+
+				if (swapem) {
 					swap(this._items, i, i+1)
+					numSwaps++
 					swapped = true
 				}
+
+				current.toString()
+				next.toString()
+				swapem = false
 			}
+		}
+
+		if (numSwaps == 0) {
+			this._items.reverse()
 		}
 
 		function swap(items, firstIndex, secondIndex){
