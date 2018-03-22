@@ -2,7 +2,8 @@
 
 var list = new ShoppingList()
 var view = new ShoppingView(list)
-var myDB = new LocalStorageSaver(list, "brads_list")
+//var myDB = new LocalStorageSaver(list, "brads_list")
+var myDB = new RemoteStorageSaver(list)
 
 function clickedon() {
 	let name = document.querySelector("#name")

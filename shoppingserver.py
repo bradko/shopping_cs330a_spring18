@@ -1,17 +1,30 @@
-import random, json
-from flask import Flask, Response
-import time
+from flask import Flask, Response, request, jsonify
+import json
 
 app = Flask(__name__)
 
-# read json from file (GET)
-@app.route('/getlist')
-def anyname():
-	pass
+# write json to text file (POST)
+@app.route('/savelist', methods=['POST'])
+def savelist():
+	f = open("shopList.txt", "w")
+	content = str(request.json)
+	f.write(content)
+	f.close()
+	return jsonify(content)
 
-# write json to file (POST)
-@app.route('/savelist')
-def save():
-	pass
+# read json from text file and return it (GET)
+@app.route('/getlist', methods=['GET'])
+def getlist():
+	text = ""
+	try:
+		f = open("shopList.txt", "r")
+		for line in f:
+			text += line
+		text = text.replace("'", '"')
+		text = text.replace('False', '"False"')
+		text = text.replace('True', '"True"')
+	except:
+		f = open("shopList.txt", "a")
+	return jsonify(text)	
 
 app.run(debug=True, port=5001)

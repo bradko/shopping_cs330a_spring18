@@ -1,10 +1,15 @@
 "use strict"
 
-class LocalStorageSaver{
+class LocalStorageSaver {
 
-	constructor(model, jlist){
+	constructor(model, jlist) {
+		if (localStorage.getItem(jlist) == null) {
+			localStorage.setItem("brads_list", '[]')
+		}
+
 		let myList = localStorage.getItem(jlist)
 		let loadedItems = JSON.parse(myList)
+
 		for (let i of loadedItems) {
 			let newItem = new Item(i._name, i._quantity, i._priority, i._store, i._category, i._price, i._timer)
 			model.addItem(newItem)
@@ -12,7 +17,7 @@ class LocalStorageSaver{
 		model.subscribe(this.saveAll)
 	}
 
-	saveAll(){
+	saveAll() {
 		let jlist = JSON.stringify(list._items)
 		localStorage.setItem("brads_list", jlist)
 	}
