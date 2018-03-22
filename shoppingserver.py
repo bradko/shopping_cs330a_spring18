@@ -7,10 +7,10 @@ app = Flask(__name__)
 @app.route('/savelist', methods=['POST'])
 def savelist():
 	f = open("shopList.txt", "w")
-	content = str(request.json)
+	content = json.dumps(request.json)
 	f.write(content)
 	f.close()
-	return jsonify(content)
+	return "Saved"
 
 # read json from text file and return it (GET)
 @app.route('/getlist', methods=['GET'])
@@ -20,7 +20,6 @@ def getlist():
 		f = open("shopList.txt", "r")
 		for line in f:
 			text += line
-		text = text.replace("'", '"')
 		text = text.replace('False', '"False"')
 		text = text.replace('True', '"True"')
 	except:

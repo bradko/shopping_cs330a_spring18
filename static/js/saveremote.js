@@ -30,8 +30,5 @@ class RemoteStorageSaver{
 		config.headers = {'Content-Type': 'application/json', 'Accept': 'application/json' }
 		
 		fetch("/savelist", config)
-		.then(function(response){
-			return response.json()
-		})
 	}
 }
